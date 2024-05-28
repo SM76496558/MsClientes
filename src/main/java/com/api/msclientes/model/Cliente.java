@@ -3,9 +3,6 @@ package com.api.msclientes.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.validation.annotation.Validated;
-
-import java.util.UUID;
 
 @Data
 @Builder(toBuilder = true)
@@ -18,7 +15,6 @@ public class Cliente {
   @Id
   private String id;
 
-
   @Column
   private String name;
 
@@ -27,6 +23,5 @@ public class Cliente {
 
   @Column
   private Integer age;
-
 
 }
