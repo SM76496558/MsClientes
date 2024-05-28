@@ -17,6 +17,7 @@ import java.util.Map;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   @ExceptionHandler(MethodArgumentNotValidException.class)
   public ResponseEntity<?> handleValidationExceptions(MethodArgumentNotValidException ex, HttpServletRequest request) {
@@ -38,13 +39,23 @@ public class GlobalExceptionHandler {
   }
 
 
-  @ResponseStatus(HttpStatus.NOT_FOUND)
-  @ExceptionHandler(NoHandlerFoundException.class)
-  public ResponseEntity<?> handleNotFound(NoHandlerFoundException ex, HttpServletRequest request) {
+  @ExceptionHandler(ResourceNotFoundException.class)
+  public ResponseEntity<?> handleNotFound(ResourceNotFoundException ex, HttpServletRequest request) {
     ApiError response = ApiError.builder()
             .timestamp(LocalDateTime.now())
             .path(request.getRequestURI())
-            .errors("Ruta no encontrada")
+            .errors(ex.getMessage())
+            .build();
+    return new ResponseEntity(response, HttpStatus.NOT_FOUND);
+  }
+
+
+  @ExceptionHandler(PathNotFound.class)
+  public ResponseEntity<?> haandlePathNotFound(PathNotFound ex, HttpServletRequest request) {
+    ApiError response = ApiError.builder()
+            .timestamp(LocalDateTime.now())
+            .path(request.getRequestURI())
+            .errors(ex.getMessage())
             .build();
     return new ResponseEntity(response, HttpStatus.NOT_FOUND);
   }

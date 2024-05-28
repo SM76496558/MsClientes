@@ -4,7 +4,7 @@ public class Perro implements Animal {
 
 
   @Override
-  public void hacerSonido(String name) {
-    
+  public void hacerSonido() {
+
   }
 }
